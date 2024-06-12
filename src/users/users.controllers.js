@@ -27,14 +27,14 @@ const getUserById = async (id) => {
 const createUser = async (data) => {
     const newUser = await Users.create({
         id: uuid.v4(),
-        firstName: data.firstName,
-        lastName: data.lastName,
+        petName: data.petName,
+        ownerName: data.ownerName,
         email: data.email,
         password: hashPassword(data.password),
         phone: data.phone,
-        birthday: data.birthday,
-        gender: data.gender,
-        country: data.country
+        age: data.age,
+        race: data.race,
+        petTypeId: data.petTypeId
     })
     return newUser
 }
@@ -57,11 +57,7 @@ const deleteUser = async (id) => {
     return data
 }
 
-//? Un servidor contiene la API
-//? Otro servidor contiene la Base de Datos
-
 const getUserByEmail = async(email) => {
-    //? SELECT * FROM users where email = 'sahid.kick@academlo.com'//
     const data = await Users.findOne({
         where: {
             email: email,

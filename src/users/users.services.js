@@ -25,28 +25,28 @@ const getUserById = (req, res) => {
 
 const registerUser = (req, res) => {
   const {
-    firstName,
-    lastName,
+    petName,
+    ownerName,
     email,
     password,
     phone,
-    birthday,
-    gender,
-    country,
+    age,
+    race,
+    petTypeId,
   } = req.body;
 
-  if (firstName && lastName && email && password && phone && birthday) {
+  if (petName && ownerName && email && password && phone && age && race && petTypeId) {
     // Ejecutamos el controller
     usersControllers
       .createUser({
-        firstName,
-        lastName,
+        petName,
+        ownerName,
         email,
         password,
         phone,
-        birthday,
-        gender,
-        country,
+        age,
+        race,
+        petTypeId,
       })
       .then((data) => {
         res.status(201).json(data);
@@ -59,12 +59,14 @@ const registerUser = (req, res) => {
     res.status(400).json({
       message: "All fields must be completed",
       fields: {
-        firstName: "string",
-        lastName: "string",
+        petName: "string",
+        ownerName: "string",
         email: "example@example.com",
         password: "string",
-        phone: "+521231231231",
-        birthday: "YYYY/MM/DD",
+        phone: "1231231231",
+        age: "3",
+        race:'M',
+        petTypeId:1
       },
     });
   }
@@ -72,10 +74,10 @@ const registerUser = (req, res) => {
 
 const patchUser = (req, res) => {
   const id = req.params.id;
-  const { firstName, lastName, phone, gender, country } = req.body;
+  const { petName, ownerName, phone, race, petTypeId } = req.body;
 
   usersControllers
-    .updateUser(id, { firstName, lastName, phone, gender, country })
+    .updateUser(id, { petName, ownerName, phone, race, petTypeId })
     .then((data) => {
       if (data[0]) {
         res
@@ -125,10 +127,10 @@ const getMyUser = (req, res) => {
 
 const patchMyUser = (req, res) => {
   const id = req.user.id;
-  const { firstName, lastName, phone, birthday, gender, country } = req.body;
+  const { petName, ownerName, phone, age, race, petTypeId } = req.body;
 
   usersControllers
-    .updateUser(id, { firstName, lastName, phone, birthday, gender, country })
+    .updateUser(id, { petName, ownerName, phone, age, race, petTypeId })
     .then(() => {
       res.status(200).json({ message: `Your user was edited succesfully!` });
     })

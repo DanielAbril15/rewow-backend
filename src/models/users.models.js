@@ -1,6 +1,7 @@
 const db = require("../utils/database");
 
 const { DataTypes } = require("sequelize");
+const PetTypes = require("./pet_types.models");
 
 const Users = db.define("users", {
   id: {
@@ -8,15 +9,15 @@ const Users = db.define("users", {
     primaryKey: true,
     allowNull: false,
   },
-  firstName: {
+  petName: {
     type: DataTypes.STRING,
     allowNull: false,
-    field: "first_name",
+    field: "pet_name",
   },
-  lastName: {
+  ownerName: {
     type: DataTypes.STRING,
     allowNull: false,
-    field: "last_name",
+    field: "owner_name",
   },
   email: {
     type: DataTypes.STRING,
@@ -31,24 +32,21 @@ const Users = db.define("users", {
     allowNull: false
   },
   phone: {
-    type: DataTypes.STRING, // +52 
+    type: DataTypes.STRING, 
     allowNull: false,
     unique: true
   },
-  birthday: {
-    type: DataTypes.DATEONLY,
+  age: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
-  gender: {
+  race: {
     type: DataTypes.STRING,
   },
   role: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'normal'
-  },
-  country: {
-    type: DataTypes.STRING,
+    defaultValue: 'user'
   },
   status: {
     type: DataTypes.STRING,
@@ -61,6 +59,15 @@ const Users = db.define("users", {
     field: 'is_verified',
     defaultValue: false
   },
+  petTypeId:{
+    type: DataTypes.INTEGER,
+    allowNull:false,
+    field:'pet_type_id',
+    references:{
+      key:'id',
+      model:PetTypes
+    }
+  }
 });
 
 module.exports = Users

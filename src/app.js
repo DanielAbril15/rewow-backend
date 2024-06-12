@@ -7,6 +7,9 @@ const { port } = require("./config");
 // Routes
 const userRouter = require("./users/users.router");
 const authRouter = require("./auth/auth.router");
+const petTypesRouter = require("./petTypes/petTypes.router");
+const appointmentTypesRouter = require("./appointmentTypes/appointmentTypes.router");
+const appointmentsRouter = require("./appointments/appointments.router");
 const initModels = require("./models/initModels");
 
 //Initial Configs
@@ -34,13 +37,15 @@ initModels();
 
 app.get("/", (req, res) => {
   res.status(200).json({
-    message: "OK!",
-    users: `localhost:${port}/api/v1/users`,
+    message: "OK! rewow works",
   });
 });
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/petTypes", petTypesRouter);
+app.use("/api/v1/appointmentTypes", appointmentTypesRouter);
+app.use("/api/v1/appointments", appointmentsRouter);
 
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);
